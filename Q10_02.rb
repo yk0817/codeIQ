@@ -5,22 +5,16 @@ am_roulette = [0, 28, 9, 26, 30, 11, 7, 20, 32, 17, 5, 22, 34, 15, 3, 24, 36, 13
                10, 25, 29, 12, 8, 19, 31, 18, 6, 21, 33, 16, 4, 23, 35, 14, 2]
 
 def sum_max(roulette, n)
-  ans = 0
-  roulette.size.times{|i|
-    tmp = 0
-    if i + n <= roulette.size
-      tmp = roulette[i, n].inject(:+)
-    else
-      tmp = roulette[0, (i + n) % roulette.size].inject(:+)
-      tmp += roulette[i..-1].inject(:+)
-    end
+  ans = roulette[0, n].inject(:+)
+  tmp = ans
+  roulette.count.times{|i|
+    tmp += roulette[(i + n) % roulette.count]
+    tmp -= roulette[i]
     ans = [ans, tmp].max
   }
-  ans
 end
 
 cnt = 0
 (2..36).each{|i|
   cnt += 1 if sum_max(eu_roulette, i) < sum_max(am_roulette, i)
 }
-p cnt
