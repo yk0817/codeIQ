@@ -1,4 +1,3 @@
-# やること
 def fibonacchi(n)
   if n == 0 || n == 1
     1
